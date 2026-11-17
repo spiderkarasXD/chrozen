@@ -27,7 +27,45 @@ onTabs((tabs, active) => {
     close.setAttribute('aria-label', 'Close ' + tab.title)
     close.textContent = '×'
     close.addEventListener('click', () => action('close', tab.id))
-    row.append(label, close)
+    const stack = document.createElement('div')
+    stack.className = 'tab-stack'
+    const background = document.createElement('div')
+    background.className = 'tab-background'
+    const content = document.createElement('div')
+    content.className = 'tab-content'
+    const icon = document.createElement('span')
+    icon.className = 'tab-icon-image'
+    icon.setAttribute('aria-hidden', 'true')
+    icon.textContent = '◎'
+    content.append(icon, label, close)
+    stack.append(background, content)
+    row.append(stack)
     return row
   }))
+})
+
+const menu = document.querySelector('#browser-menu')
+document.querySelector('#PanelUI-button').addEventListener('click', () => menu.togglePopover())
+menu.addEventListener('toggle', () => {
+  document.querySelector('#PanelUI-button').setAttribute('aria-expanded', String(menu.matches(':popover-open')))
+})
+document.querySelector('#menu-location').addEventListener('click', () => {
+  menu.hidePopover()
+  input.focus()
+  input.select()
+})
+document.querySelector('#zen-theme-button').addEventListener('click', () => {
+  const light = document.documentElement.toggleAttribute('data-light')
+  localStorage.setItem('chrozen-light', String(light))
+  action('theme', light)
+})
+if (localStorage.getItem('chrozen-light') === 'true') {
+  document.documentElement.setAttribute('data-light', '')
+  action('theme', true)
+}
+window.chrozen.onShortcut((shortcut) => {
+  if (shortcut === 'location') {
+    input.focus()
+    input.select()
+  }
 })

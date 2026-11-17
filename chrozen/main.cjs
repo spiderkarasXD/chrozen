@@ -18,6 +18,25 @@ app.whenReady().then(() => {
   let active
   let nextId = 0
   let chromeReady = false
+  function shortcuts(contents) {
+    contents.on('before-input-event', (event, input) => {
+      if (input.type !== 'keyDown' || !(input.control || input.meta)) return
+      const key = input.key.toLowerCase()
+      if (!['t', 'w', 'l'].includes(key)) return
+      event.preventDefault()
+      if (key === 't') {
+        add()
+        win.webContents.focus()
+        win.webContents.send('shortcut', 'location')
+      }
+      if (key === 'w') close(active)
+      if (key === 'l') {
+        win.webContents.focus()
+        win.webContents.send('shortcut', 'location')
+      }
+    })
+  }
+  shortcuts(win.webContents)
   const publish = () => {
     if (!chromeReady || win.isDestroyed()) return
     win.webContents.send('tabs', [...tabs.values()].map(({ id, title, url }) => ({ id, title, url })), active)
@@ -41,6 +60,7 @@ app.whenReady().then(() => {
     })
     const tab = { id: ++nextId, title: 'New Tab', url: '', view }
     tabs.set(tab.id, tab)
+    shortcuts(view.webContents)
     win.contentView.addChildView(view)
     view.setBackgroundColor('#29292f')
     view.setBorderRadius(10)
@@ -76,6 +96,9 @@ app.whenReady().then(() => {
     if (action === 'back' && current?.navigationHistory.canGoBack()) current.navigationHistory.goBack()
     if (action === 'forward' && current?.navigationHistory.canGoForward()) current.navigationHistory.goForward()
     if (action === 'reload') current?.reload()
+    if (action === 'theme') {
+      for (const { view } of tabs.values()) view.setBackgroundColor(value ? '#faf9f6' : '#191919')
+    }
     if (action === 'navigate' && typeof value === 'string') {
       const input = value.trim()
       if (!input) return

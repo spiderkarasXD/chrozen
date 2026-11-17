@@ -1,19 +1,35 @@
 <!doctype html>
-<html lang="en">
+<html id="main-window" lang="en" windowtype="navigator:browser" zen-single-toolbar="true" zen-sidebar-expanded="true">
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'">
 <title>Chrozen</title>
 <link rel="stylesheet" href="../src/zen/common/styles/zen-tokens.css">
+<link rel="stylesheet" href="zen-theme.generated.css">
+<link rel="stylesheet" href="../src/zen/tabs/zen-tabs/vertical-tabs.css">
 <link rel="stylesheet" href="chrome.css">
-<aside id="navigator-toolbox" aria-label="Browser">
-  <form id="urlbar"><input id="urlbar-input" aria-label="Search or enter address" placeholder="Search or enter address"></form>
-  <nav aria-label="Navigation">
-    <button data-action="back" aria-label="Back">←</button>
-    <button data-action="forward" aria-label="Forward">→</button>
+<div id="zen-main-app-wrapper">
+<aside zen-sidebar-expanded="true" id="navigator-toolbox" aria-label="Browser">
+  <nav id="zen-sidebar-top-buttons" aria-label="Navigation">
+    <button id="PanelUI-button" aria-label="Browser menu" aria-expanded="false">☰</button>
+    <span class="toolbar-spacer"></span>
+    <button data-action="back" aria-label="Back">‹</button>
+    <button data-action="forward" aria-label="Forward">›</button>
     <button data-action="reload" aria-label="Reload">↻</button>
   </nav>
-  <div id="tabbrowser-tabs" aria-label="Tabs"></div>
-  <button data-action="new" id="tabs-newtab-button">＋ New Tab</button>
+  <form id="urlbar"><span class="search-icon" aria-hidden="true"></span><input id="urlbar-input" aria-label="Search or enter address" placeholder="Search or enter address"></form>
+  <div id="zen-tabs-wrapper">
+    <div id="tabbrowser-tabs" aria-label="Tabs"></div>
+    <button data-action="new" id="tabs-newtab-button"><span aria-hidden="true">＋</span><span class="toolbarbutton-text">New Tab</span></button>
+  </div>
+  <footer id="zen-sidebar-foot-buttons">
+    <span class="toolbar-spacer"></span>
+    <button id="zen-theme-button" aria-label="Switch light or dark theme">◐</button>
+  </footer>
 </aside>
+</div>
+<div id="browser-menu" popover>
+  <button data-action="new">New Tab <kbd>Ctrl+T</kbd></button>
+  <button id="menu-location">Open Location <kbd>Ctrl+L</kbd></button>
+</div>
 <script src="renderer.js"></script>
 </html>

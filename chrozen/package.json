@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "main": "main.cjs",
-  "scripts": { "start": "electron ." },
-  "devDependencies": { "electron": "44.10.0" }
+  "scripts": { "start": "electron .", "build:theme": "node build-theme.cjs" },
+  "devDependencies": { "electron": "44.10.0", "postcss": "^8.5.6" }
 }
