@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'">
+<title>Chrozen</title>
+<link rel="stylesheet" href="../src/zen/common/styles/zen-tokens.css">
+<link rel="stylesheet" href="chrome.css">
+<aside id="navigator-toolbox" aria-label="Browser">
+  <form id="urlbar"><input id="urlbar-input" aria-label="Search or enter address" placeholder="Search or enter address"></form>
+  <nav aria-label="Navigation">
+    <button data-action="back" aria-label="Back">←</button>
+    <button data-action="forward" aria-label="Forward">→</button>
+    <button data-action="reload" aria-label="Reload">↻</button>
+  </nav>
+  <div id="tabbrowser-tabs" aria-label="Tabs"></div>
+  <button data-action="new" id="tabs-newtab-button">＋ New Tab</button>
+</aside>
+<script src="renderer.js"></script>
+</html>
